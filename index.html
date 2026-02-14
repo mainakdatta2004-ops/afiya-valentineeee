@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Afiya ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(180deg,#ffd6e7,#ff8fb1);
+color:white;
+}
+
+/* center box */
+.container{max-width:520px;padding:20px;z-index:2;position:relative}
+
+.bear{font-size:65px;animation:bounce 1s infinite alternate}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-22px)}}
+
+h1{font-family:'Dancing Script',cursive;font-size:46px;margin:10px 0}
+.subtitle{font-style:italic;margin-bottom:20px;opacity:.9}
+
+.buttons{display:flex;gap:40px;justify-content:center;margin-top:25px}
+
+button{padding:14px 30px;font-size:18px;border:none;border-radius:50px;cursor:pointer;transition:.25s}
+
+#yes{
+background:linear-gradient(45deg,#ff2d55,#ff6b81);
+color:white;
+box-shadow:0 0 18px rgba(255,0,80,.7);
+}
+#yes:hover{transform:scale(1.1)}
+
+#no{
+background:white;
+color:#ff2d55;
+border:3px solid #ff2d55;
+position:fixed;
+}
+
+/* floating hearts */
+.heart{
+position:fixed;
+bottom:-40px;
+animation:float linear infinite;
+opacity:0;
+}
+@keyframes float{
+0%{transform:translateY(0);opacity:0}
+15%{opacity:1}
+85%{opacity:1}
+100%{transform:translateY(-120vh);opacity:0}
+}
+
+/* celebration */
+#celebrate{
+position:fixed;
+inset:0;
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(180deg,#ff8fb1,#ff2d55);
+font-size:30px;
+}
+.yay{font-size:72px;font-family:'Dancing Script',cursive;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+.spin{font-size:60px;animation:spin 2s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.confetti{
+position:fixed;
+width:10px;height:10px;top:-10px;
+animation:fall linear forwards;
+}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+</style>
+</head>
+<body>
+<audio id="music" loop>
+<source src="love-me.mp3" type="audio/mpeg">
+</audio>
+<div class="container" id="main">
+<div class="bear">🐻</div>
+<h1>Will You Be My Valentine, 𝐀𝐟𝐢𝐲𝐚?</h1>
+<div class="subtitle">I've been gathering courage to ask you this...</div>
+<div>Every love story is beautiful, but ours is my favourite</div>
+<div class="buttons">
+<button id="yes">Yes ❤️</button>
+<button id="no">No</button>
+</div>
+</div>
+<div id="celebrate">
+<div class="yay">Yayyyy!!</div>
+<div class="spin">💞</div>
+<p>I knew you'd say yes...</p>
+</div>
+<script>
+const music=document.getElementById("music");
+document.body.addEventListener("click",()=>music.play(),{once:true});
+
+// floating hearts
+for(let i=0;i<15;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💗";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(15+Math.random()*30)+"px";
+h.style.animationDuration=(6+Math.random()*6)+"s";
+h.style.animationDelay=(Math.random()*6)+"s";
+document.body.appendChild(h);
+}
+
+// no button runaway
+const no=document.getElementById("no");
+const yes=document.getElementById("yes");
+
+const msgs=["Nope, not an option!","Try again!","You sure about that?","Not happening!","Think again!"];
+
+function moveNo(){
+let rect=yes.getBoundingClientRect();
+let x,y;
+do{
+x=Math.random()*(window.innerWidth-100);
+y=Math.random()*(window.innerHeight-60);
+}while(x>rect.left-120 && x<rect.right+120 && y>rect.top-80 && y<rect.bottom+80);
+
+no.style.left=x+"px";
+no.style.top=y+"px";
+no.textContent=msgs[Math.floor(Math.random()*msgs.length)];
+}
+
+no.addEventListener("mouseover",moveNo);
+no.addEventListener("click",moveNo);
+no.addEventListener("touchstart",moveNo);
+
+// YES clicked
+yes.onclick=()=>{
+document.getElementById("main").style.display="none";
+document.querySelectorAll(".heart").forEach(h=>h.remove());
+document.getElementById("celebrate").style.display="flex";
+music.play();
+
+for(let i=0;i<120;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background=`hsl(${Math.random()*360},100%,60%)`;
+c.style.animationDuration=(3+Math.random()*3)+"s";
+document.body.appendChild(c);
+}
+};
+</script>
+</body>
+</html>
+:::
